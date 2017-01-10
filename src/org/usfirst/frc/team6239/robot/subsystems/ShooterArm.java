@@ -1,5 +1,4 @@
 package org.usfirst.frc.team6239.robot.subsystems;
-
 import org.usfirst.frc.team6239.robot.commands.Shoot2Command;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
