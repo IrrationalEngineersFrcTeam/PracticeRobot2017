@@ -1,15 +1,14 @@
 
 package org.usfirst.frc.team6239.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.io.IOException;
 
 import org.usfirst.frc.team6239.robot.subsystems.DriveSub;
 import org.usfirst.frc.team6239.robot.subsystems.ShooterArm;
+
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,6 +23,7 @@ public class Robot extends IterativeRobot {
 	public static RobotMap robotmap;
 	public static DriveSub DRIVE_SUB;
 	public static ShooterArm shooter_arm;
+    private final NetworkTable grip = NetworkTable.getTable("grip");
 
 	public void robotInit() {
 		
@@ -31,6 +31,11 @@ public class Robot extends IterativeRobot {
 		robotmap = new RobotMap();
 		DRIVE_SUB = new DriveSub();
 		shooter_arm = new ShooterArm();
+		 try {
+	            new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 
 	}
 	
@@ -56,6 +61,10 @@ public class Robot extends IterativeRobot {
 	
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		 /* Get published values from GRIP using NetworkTables */
+        for (double area : grip.getNumberArray("targets/area", new double[0])) {
+            System.out.println("Got contour with area=" + area);
+        }
 
 	}
 	
