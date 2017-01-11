@@ -23,7 +23,7 @@ public class Robot extends IterativeRobot {
 	public static RobotMap robotmap;
 	public static DriveSub DRIVE_SUB;
 	public static ShooterArm shooter_arm;
-    private final NetworkTable grip = NetworkTable.getTable("grip");
+    public NetworkTable grip = NetworkTable.getTable("grip");
 
 	public void robotInit() {
 		
