@@ -1,5 +1,6 @@
 package org.usfirst.frc.team6239.robot.commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team6239.robot.Robot;
@@ -17,13 +18,12 @@ public class Shoot2Command extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		Robot.robotmap.Solenoid2.set(true);
-		Robot.robotmap.Solenoid3.set(true);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		Robot.shooter_arm.Shoot2Forward();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

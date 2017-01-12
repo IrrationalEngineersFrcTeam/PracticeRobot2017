@@ -1,7 +1,6 @@
 package org.usfirst.frc.team6239.robot.commands;
 
 import org.usfirst.frc.team6239.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Shoot4Command extends Command {
@@ -13,24 +12,18 @@ public class Shoot4Command extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		Robot.robotmap.Solenoid1.set(true);
-		Robot.robotmap.Solenoid2.set(true);
-		Robot.robotmap.Solenoid3.set(true);
-		Robot.robotmap.Solenoid4.set(true);
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		Robot.shooter_arm.Shoot4Forward();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		Robot.robotmap.Solenoid1.set(false);
-		Robot.robotmap.Solenoid2.set(false);
-		Robot.robotmap.Solenoid3.set(false);
-		Robot.robotmap.Solenoid4.set(false);
 		return false;
 	}
 
