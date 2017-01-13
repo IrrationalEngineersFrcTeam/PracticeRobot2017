@@ -1,12 +1,14 @@
 
 package org.usfirst.frc.team6239.robot;
 
-import org.usfirst.frc.team6239.robot.subsystems.DriveSub;
+import org.usfirst.frc.team6239.robot.subsystems.DriveSub; 
 import org.usfirst.frc.team6239.robot.subsystems.ShooterArm;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
 	
@@ -18,14 +20,31 @@ public class Robot extends IterativeRobot {
 	public static ShooterArm shooter_arm;
 	public static double currentAngleX;
 	public static double currentAngleY;
+	public SmartDashboard smartDashboard;
+	public SendableChooser<Enum> JoyType;
+	public SendableChooser<Enum> DriveType;
+	
+	public enum DriveConfig{
+		Joysticks,
+		Gamepad,
+		Tank,
+		Arcade
+	}
+	
 	
 	public void robotInit() {
-		
+		JoyType = new SendableChooser<Enum>();
+		DriveType = new SendableChooser<Enum>();
+		DriveType.addDefault( "DriveType",DriveConfig.Tank);
+		DriveType.addObject( "DriveType",DriveConfig.Arcade);
+		JoyType.addDefault( "JoyType",DriveConfig.Gamepad);
+		JoyType.addObject( "JoyType",DriveConfig.Joysticks);
 		oi = new OI();
 		robotmap = new RobotMap();
 		DRIVE_SUB = new DriveSub();
 		shooter_arm = new ShooterArm();
-	
+		
+		
 		 accel = new BuiltInAccelerometer();
          currentAngleX = 0;
          currentAngleY = 0;
@@ -54,6 +73,7 @@ public class Robot extends IterativeRobot {
     	if (print_flag)
     	{
     		System.out.println("accel: X = " + next_x + ", Y = " + next_y);
+    		
     	}
 
     }
