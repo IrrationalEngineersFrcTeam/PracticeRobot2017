@@ -132,8 +132,12 @@ public class Robot extends IterativeRobot {
 		if (smartDashboard.getData("JoyStick_data").equals(DriveConfig.Joysticks)){
 			joystick=true;
 		}
-		
-		
+		if (smartDashboard.getData("Drive_data").equals(DriveConfig.Tank)){
+			tank=true;
+		}
+		if (smartDashboard.getData("Drive_data").equals(DriveConfig.Arcade)){
+			arcade=true;
+		}
 		
 		
 	}
