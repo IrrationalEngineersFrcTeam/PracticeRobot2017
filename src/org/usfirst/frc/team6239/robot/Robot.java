@@ -24,7 +24,7 @@ public class Robot extends IterativeRobot {
 	public SendableChooser<Enum> JoyType;
 	public SendableChooser<Enum> DriveType;
 	
-	public enum DriveConfig{
+	public enum DriveConfig {
 		Joysticks,
 		Gamepad,
 		Tank,
@@ -32,13 +32,8 @@ public class Robot extends IterativeRobot {
 	}
 	
 	
-	public void robotInit() {
-		JoyType = new SendableChooser<Enum>();
-		DriveType = new SendableChooser<Enum>();
-		DriveType.addDefault( "DriveType",DriveConfig.Tank);
-		DriveType.addObject( "DriveType",DriveConfig.Arcade);
-		JoyType.addDefault( "JoyType",DriveConfig.Gamepad);
-		JoyType.addObject( "JoyType",DriveConfig.Joysticks);
+	public void robotInit() {		
+				
 		oi = new OI();
 		robotmap = new RobotMap();
 		DRIVE_SUB = new DriveSub();
@@ -48,10 +43,24 @@ public class Robot extends IterativeRobot {
 		 accel = new BuiltInAccelerometer();
          currentAngleX = 0;
          currentAngleY = 0;
+         
+ 		smartDashboard = new SmartDashboard();
+ 		JoyType = new SendableChooser<Enum>();
+ 		DriveType = new SendableChooser<Enum>();
+ 		DriveType.addDefault( "DriveType", DriveConfig.Tank);
+ 		DriveType.addObject( "DriveType", DriveConfig.Arcade);
+ 		JoyType.addDefault( "JoyType", DriveConfig.Gamepad);
+ 		JoyType.addObject( "JoyType", DriveConfig.Joysticks);
+ 		smartDashboard.putData("JoyStick_data", JoyType);
+ 	    smartDashboard.putData("Drive_data", DriveType);
+ 	    
 	}
    
 	
     public void teleopPeriodic1() {
+    	
+
+
     	
     	boolean print_flag = false;
     	
@@ -76,6 +85,8 @@ public class Robot extends IterativeRobot {
     		
     	}
 
+    	
+    	
     }
 
 	
@@ -89,8 +100,8 @@ public class Robot extends IterativeRobot {
 
 	}
 	
-	public void teleopInit() {
-		
+	public void teleopInit() { 
+			DetirmineDrive();
 
 	}
 	
@@ -108,6 +119,23 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 
 	}
-
+	
+	
+	public static boolean tank,arcade,joystick,gamepad = false;
+	
+	public void DetirmineDrive(){
+		
+		if (smartDashboard.getData("JoyStick_data").equals(DriveConfig.Gamepad)){
+			gamepad=true;
+			
+		}
+		if (smartDashboard.getData("JoyStick_data").equals(DriveConfig.Joysticks)){
+			joystick=true;
+		}
+		
+		
+		
+		
+	}
 	
 }
