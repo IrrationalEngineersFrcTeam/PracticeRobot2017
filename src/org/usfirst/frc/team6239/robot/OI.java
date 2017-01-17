@@ -1,5 +1,8 @@
 package org.usfirst.frc.team6239.robot;
 
+import org.usfirst.frc.team6239.robot.commands.RollerArmExtend;
+import org.usfirst.frc.team6239.robot.commands.RollerArmRetract;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -39,6 +42,8 @@ public class OI {
 	public Joystick gamepad;
 	public Button LeftJoystick;
 	public Button RightJoystick;
+	Button RetractRlrArm;
+	Button ExtendRlrArm;
 	Button shoot2;
 	Button shoot4;
 	
@@ -48,6 +53,10 @@ public class OI {
 		RightJoystick = new JoystickButton(gamepad, 1);
 		shoot2 = new JoystickButton(gamepad, 0);
 		shoot4 = new JoystickButton(gamepad, 1);
+		RetractRlrArm = new JoystickButton(gamepad, 2);
+		ExtendRlrArm = new JoystickButton(gamepad, 3);
+		ExtendRlrArm.whenPressed(new RollerArmExtend());
+		RetractRlrArm.whenPressed(new RollerArmRetract());
 	}
 }
 

@@ -3,7 +3,8 @@ package org.usfirst.frc.team6239.robot;
 
 import java.io.IOException;
 
-import org.usfirst.frc.team6239.robot.subsystems.DriveSub; 
+import org.usfirst.frc.team6239.robot.subsystems.DriveSub;
+import org.usfirst.frc.team6239.robot.subsystems.RollerArmPneumatics;
 import org.usfirst.frc.team6239.robot.subsystems.ShooterArm;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -21,6 +22,7 @@ public class Robot extends IterativeRobot {
 	public static RobotMap robotmap;
 	public static DriveSub DRIVE_SUB;
 	public static ShooterArm shooter_arm;
+	public static RollerArmPneumatics roller_arm_pneu;
 	public static double currentAngleX;
 	public static double currentAngleY;
 	public SmartDashboard smartDashboard;
@@ -42,6 +44,7 @@ public class Robot extends IterativeRobot {
 		robotmap = new RobotMap();
 		DRIVE_SUB = new DriveSub();
 		shooter_arm = new ShooterArm();
+		roller_arm_pneu = new RollerArmPneumatics();
 		 try { 
 			   new ProcessBuilder("/home/lvuser/grip").inheritIO().start(); 
 			 } catch (IOException e) { 
