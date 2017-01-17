@@ -3,14 +3,14 @@ package org.usfirst.frc.team6239.robot;
 
 import java.io.IOException;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6239.robot.subsystems.DriveSub;
 import org.usfirst.frc.team6239.robot.subsystems.ShooterArm;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,6 +41,10 @@ public class Robot extends IterativeRobot {
     
 	public void robotInit() {
 		
+
+
+
+
 		oi = new OI();
 		robotmap = new RobotMap();
 		DRIVE_SUB = new DriveSub();
