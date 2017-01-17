@@ -69,6 +69,40 @@ public class Robot extends IterativeRobot {
 	    //    }
 
 	}
+   
+	
+    public void teleopPeriodic1() {
+    	
+
+
+    	
+    	boolean print_flag = false;
+    	
+    	double next_x = accel.getX();
+    	double next_y = accel.getY();
+    	
+    	if (next_x != currentAngleX) 
+    	{	
+    		currentAngleX = next_x ;
+    		print_flag = true;
+    	}
+    	
+    	if (next_y != currentAngleY) 
+    	{	
+    		currentAngleY = next_y ;
+    		print_flag = true;
+    	}
+    	
+    	if (print_flag)
+    	{
+    		System.out.println("accel: X = " + next_x + ", Y = " + next_y);
+    		
+    	}
+
+    	
+    	
+    }
+
 	
 	public void disabledInit() {
 		
