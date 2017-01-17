@@ -36,16 +36,36 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+	
+	
+	
+	// ---- game pad control ----\\
 	public Joystick gamepad;
+	public Button LeftGamepadJoystick;
+	public Button RightGamepadJoystick;
+	// ---- stick control ---- \\
+	public Joystick stickcontrolerL;
+	public Joystick stickcontrolerR;
 	public Button LeftJoystick;
 	public Button RightJoystick;
+
 	Button shoot2;
 	Button shoot4;
 	
 	public OI() {
+		
+		
+		// ---- game pad control ----\\
 		gamepad = new Joystick(0);
-		LeftJoystick = new JoystickButton(gamepad, 0);
-		RightJoystick = new JoystickButton(gamepad, 1);
+		LeftGamepadJoystick = new JoystickButton(gamepad, 1);
+		RightGamepadJoystick = new JoystickButton(gamepad, 5);
+		// ---- stick control ---- \\
+		stickcontrolerL = new Joystick(1);
+		stickcontrolerR = new Joystick(2);
+		LeftJoystick = new JoystickButton(stickcontrolerL, 1);
+		RightJoystick = new JoystickButton(stickcontrolerR, 1);
+		
+		
 		shoot2 = new JoystickButton(gamepad, 0);
 		shoot4 = new JoystickButton(gamepad, 1);
 	}

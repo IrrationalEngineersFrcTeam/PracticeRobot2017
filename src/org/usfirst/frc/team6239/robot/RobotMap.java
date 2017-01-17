@@ -25,11 +25,13 @@ public class RobotMap {
 	public static int leftTalon2 = 1;
 	public static int rightTalon1 = 2;
 	public static int rightTalon2 = 3;
+ 	public static int rollertalon = 4;
  	
 	public Talon LeftController1;
 	public Talon LeftController2;
 	public Talon RightController1;
 	public Talon RightController2;
+	public Talon RollerController;
 	
 	public static int solenoid1 = 0;
 	public static int solenoid2 = 1;
@@ -46,10 +48,15 @@ public class RobotMap {
 	public DoubleSolenoid Solenoid4;
 	
 	public RobotMap() {
+		
+		
 		LeftController1 = new Talon(leftTalon1);
 		LeftController2 = new Talon(leftTalon2);
 		RightController1 = new Talon(rightTalon1);
 		RightController2 = new Talon(rightTalon2);
+		RollerController = new Talon(rollertalon);
+		
+		
 		Solenoid1 = new DoubleSolenoid(solenoid1, solenoid2);
 		Solenoid2 = new DoubleSolenoid(solenoid3, solenoid4);
 		Solenoid3 = new DoubleSolenoid(solenoid5, solenoid6);

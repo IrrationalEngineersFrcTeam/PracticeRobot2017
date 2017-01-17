@@ -31,11 +31,11 @@ public class Robot extends IterativeRobot {
 		robotmap = new RobotMap();
 		DRIVE_SUB = new DriveSub();
 		shooter_arm = new ShooterArm();
-		 try {
-	            new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
+		// try {
+	      //      new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
+	      //  } catch (IOException e) {
+	       //     e.printStackTrace();
+	    //    }
 
 	}
 	
@@ -69,7 +69,19 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
+		//Scheduler.getInstance().run();
+		
+		   
+		   
+		
+	    // ---- Tank Drive ---- \\
+		   Robot.robotmap.LeftController1.set(1);
+		   Robot.robotmap.LeftController2.set(1);
+		   Robot.robotmap.RightController1.set(1);
+		   Robot.robotmap.RightController2.set(1);
+	       Robot.robotmap.RollerController.set(1);
+		
+		
 
 	}
 
