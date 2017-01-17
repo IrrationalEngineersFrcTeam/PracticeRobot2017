@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team6239.robot;
 
+import java.io.IOException;
+
 import org.usfirst.frc.team6239.robot.subsystems.DriveSub; 
 import org.usfirst.frc.team6239.robot.subsystems.ShooterArm;
 
@@ -9,6 +11,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class Robot extends IterativeRobot {
 	
@@ -23,6 +26,7 @@ public class Robot extends IterativeRobot {
 	public SmartDashboard smartDashboard;
 	public SendableChooser<Enum> JoyType;
 	public SendableChooser<Enum> DriveType;
+	public NetworkTable grip = NetworkTable.getTable("grip");
 	
 	public enum DriveConfig {
 		Joysticks,
@@ -38,6 +42,12 @@ public class Robot extends IterativeRobot {
 		robotmap = new RobotMap();
 		DRIVE_SUB = new DriveSub();
 		shooter_arm = new ShooterArm();
+		 try { 
+			   new ProcessBuilder("/home/lvuser/grip").inheritIO().start(); 
+			 } catch (IOException e) { 
+			  e.printStackTrace(); 
+       } 
+
 		
 		
 		 accel = new BuiltInAccelerometer();
@@ -112,6 +122,9 @@ public class Robot extends IterativeRobot {
 	
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		for (double area : grip.getNumberArray("targets/area", new double[0])) { 
+			System.out.println("Got contour with area=" + area); 
+		}
 
 	}
 	
