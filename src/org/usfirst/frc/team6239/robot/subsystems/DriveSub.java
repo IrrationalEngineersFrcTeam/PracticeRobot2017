@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveSub extends Subsystem {
 	
-	public boolean stickcontrol, arcade = false;
+
 	
    public void DriveRobot(double Leftspeed, double Rightspeed) {
 	
-	   if(stickcontrol = true){
+	   if(joystick = true){
 		   
 		   if(arcade = true){
 		   

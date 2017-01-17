@@ -9,6 +9,8 @@ import org.usfirst.frc.team6239.robot.subsystems.ShooterArm;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,13 +26,38 @@ public class Robot extends IterativeRobot {
 	public static DriveSub DRIVE_SUB;
 	public static ShooterArm shooter_arm;
     public NetworkTable grip = NetworkTable.getTable("grip");
-
+    public SmartDashboard smartDashboard;
+	public SendableChooser<Enum> JoyType;
+	public SendableChooser<Enum> DriveType;
+    
+    
+    
+    
+    public enum DriveConfig {
+		Joysticks,
+		Arcade,
+	}
+    
+    
 	public void robotInit() {
 		
 		oi = new OI();
 		robotmap = new RobotMap();
 		DRIVE_SUB = new DriveSub();
 		shooter_arm = new ShooterArm();
+		
+		smartDashboard = new SmartDashboard();
+ 		JoyType = new SendableChooser<Enum>();
+ 		DriveType = new SendableChooser<Enum>();
+ 		DriveType.addObject( "DriveType", DriveConfig.Arcade);
+ 		JoyType.addObject( "JoyType", DriveConfig.Joysticks);
+ 		smartDashboard.putData("JoyStick_data", JoyType);
+ 	    smartDashboard.putData("Drive_data", DriveType);
+		
+		
+		
+		
+		
 		// try {
 	      //      new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
 	      //  } catch (IOException e) {
@@ -68,20 +95,28 @@ public class Robot extends IterativeRobot {
 
 	}
 	
-	public void teleopPeriodic() {
-		//Scheduler.getInstance().run();
+	public void teleopPeriodic(){
+		Scheduler.getInstance().run();
 		
+		public static boolean arcade , oystick = false;
+		
+		public void DetirmineDrive(){
+				
+			
+			if (smartDashboard.getData("JoyStick_data").equals(DriveConfig.Joysticks)){
+				joystick=true;
+			}
+			
+			
+			if (smartDashboard.getData("Drive_data").equals(DriveConfig.Arcade)){
+				arcade=true;
+			}   
 		   
-		   
-		
-	    // ---- Tank Drive ---- \\
-		   Robot.robotmap.LeftController1.set(1);
-		   Robot.robotmap.LeftController2.set(1);
-		   Robot.robotmap.RightController1.set(1);
-		   Robot.robotmap.RightController2.set(1);
-	       Robot.robotmap.RollerController.set(1);
-		
-		
+	
+		}
+	
+	
+
 
 	}
 
