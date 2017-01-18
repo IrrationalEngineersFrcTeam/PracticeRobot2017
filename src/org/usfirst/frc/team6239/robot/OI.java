@@ -1,8 +1,11 @@
 package org.usfirst.frc.team6239.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -10,64 +13,50 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
-    // Joystick stick = new Joystick(port);
-    // Button button = new JoystickButton(stick, buttonNumber);
-    
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-    
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-    
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-    
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-    
-    // Start the command when the button is released  and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
+    public int Gamepad_Y_Axis_Right =5;
+    public int Gamepad_Y_Axis_Left = 1;
+    public int Gamepad_X_Axis_Right = 3; //<---- check this
+    public int Joystick_Y_Axis_Left=1;
+    public int Joystick_Y_Axis_Right =1;
+    public int Joystick_X_Axis_Right =2; //<-- check this.
 	
-	
-	
-	// ---- game pad control ----\\
-	public Joystick gamepad;
-	public Button LeftGamepadJoystick;
-	public Button RightGamepadJoystick;
-	// ---- stick control ---- \\
-	public Joystick stickcontrolerL;
-	public Joystick stickcontrolerR;
-	public Button LeftJoystick;
-	public Button RightJoystick;
-
+   private int JoyTotal = 3;
 	Button shoot2;
 	Button shoot4;
-	
+	public Map<String,Joystick> joystickList;
 	public OI() {
 		
-		
-		// ---- game pad control ----\\
-		gamepad = new Joystick(0);
-		LeftGamepadJoystick = new JoystickButton(gamepad, 1);
-		RightGamepadJoystick = new JoystickButton(gamepad, 5);
-		// ---- stick control ---- \\
-		stickcontrolerL = new Joystick(1);
-		stickcontrolerR = new Joystick(2);
-		LeftJoystick = new JoystickButton(stickcontrolerL, 1);
-		RightJoystick = new JoystickButton(stickcontrolerR, 1);
-		
-		
-		shoot2 = new JoystickButton(gamepad, 0);
-		shoot4 = new JoystickButton(gamepad, 1);
+        joystickList = getJoystickList();
+
+
+
+
+		//shoot2 = new JoystickButton(gamepad, 0);
+		//shoot4 = new JoystickButton(gamepad, 1);
 	}
+
+    private Map<String,Joystick> getJoystickList(){
+
+        Map<String,Joystick> joysticks = new HashMap<String,Joystick>();
+
+        for (int i=0;i<JoyTotal-1;i++){
+            if (DriverStation.getInstance().getJoystickName(i).contains("gamepad")){  // need to change name
+                joysticks.put("Gamepad",new Joystick(i));
+            }
+            if(DriverStation.getInstance().getJoystickName(i).contains("Axis") && !joysticks.containsKey("LeftJoy")){ // check name
+                joysticks.put("LeftJoy",new Joystick(i));
+            }else if (DriverStation.getInstance().getJoystickName(i).contains("Axis")){ // check name
+                joysticks.put("RightJoy", new Joystick(i));
+            }
+
+
+
+        }
+
+        return joysticks;
+
+
+
+    }
 }
 

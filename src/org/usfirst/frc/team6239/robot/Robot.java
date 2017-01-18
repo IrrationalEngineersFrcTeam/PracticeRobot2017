@@ -1,16 +1,13 @@
 
 package org.usfirst.frc.team6239.robot;
 
-import java.io.IOException;
-
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team6239.robot.subsystems.DriveSub;
 import org.usfirst.frc.team6239.robot.subsystems.ShooterArm;
-
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,18 +26,31 @@ public class Robot extends IterativeRobot {
     public SmartDashboard smartDashboard;
 	public SendableChooser<Enum> JoyType;
 	public SendableChooser<Enum> DriveType;
-    
+
+	public static Robot _robot;
+
     
     
     
     public enum DriveConfig {
-		Joysticks,
-		Arcade,
+		Joysticks(2),
+		Arcade(5),
+		Tank(6),
+		Gamepad(1);
+
+		private final int value;
+
+		DriveConfig(final int newValue){
+			value = newValue;
+		}
+		public int getValue(){return  value;}
 	}
     
     
 	public void robotInit() {
-		
+    	if(_robot != this){
+    		_robot = this;
+		}
 
 
 
@@ -58,50 +68,8 @@ public class Robot extends IterativeRobot {
  		smartDashboard.putData("JoyStick_data", JoyType);
  	    smartDashboard.putData("Drive_data", DriveType);
 		
-		
-		
-		
-		
-		// try {
-	      //      new ProcessBuilder("/home/lvuser/grip").inheritIO().start();
-	      //  } catch (IOException e) {
-	       //     e.printStackTrace();
-	    //    }
 
 	}
-   
-	
-    public void teleopPeriodic1() {
-    	
-
-
-    	
-    	boolean print_flag = false;
-    	
-    	double next_x = accel.getX();
-    	double next_y = accel.getY();
-    	
-    	if (next_x != currentAngleX) 
-    	{	
-    		currentAngleX = next_x ;
-    		print_flag = true;
-    	}
-    	
-    	if (next_y != currentAngleY) 
-    	{	
-    		currentAngleY = next_y ;
-    		print_flag = true;
-    	}
-    	
-    	if (print_flag)
-    	{
-    		System.out.println("accel: X = " + next_x + ", Y = " + next_y);
-    		
-    	}
-
-    	
-    	
-    }
 
 	
 	public void disabledInit() {
@@ -116,7 +84,7 @@ public class Robot extends IterativeRobot {
 	
 	public void teleopInit() {
 		
-
+	DetirmineDrive();
 	}
 	
 	public void disabledPeriodic() {
@@ -126,37 +94,90 @@ public class Robot extends IterativeRobot {
 	
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		 /* Get published values from GRIP using NetworkTables */
-        for (double area : grip.getNumberArray("targets/area", new double[0])) {
-            System.out.println("Got contour with area=" + area);
-        }
+
 
 	}
-	
+
 	public void teleopPeriodic(){
 		Scheduler.getInstance().run();
-		
-		public static boolean arcade , oystick = false;
-		
-		public void DetirmineDrive(){
-				
-			
-			if (smartDashboard.getData("JoyStick_data").equals(DriveConfig.Joysticks)){
-				joystick=true;
-			}
-			
-			
-			if (smartDashboard.getData("Drive_data").equals(DriveConfig.Arcade)){
-				arcade=true;
-			}   
-		   
-	
-		}
-	
-	
 
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+	private  DriveConfig _driveType;
+	private  DriveConfig _joyType;
+	public void setJoyConfig(DriveConfig Joytype){
+		 this._joyType = Joytype;
+	}
+	public void setDriveConfig(DriveConfig DriveType){
+		this._driveType = DriveType;
+	}
+	public  DriveConfig getDriveType(){
+		return this._driveType;
+	}
+	public  DriveConfig getJoyType(){
+		return this._joyType;
+	}
+
+	public void DetirmineDrive(){
+		setJoyConfig((DriveConfig) JoyType.getSelected() );
+		setDriveConfig((DriveConfig) DriveType.getSelected());
 
 	}
 
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    public void GetAccelerometerData() {
+//
+//
+//
+//
+//    	boolean print_flag = false;
+//
+//    	double next_x = accel.getX();
+//    	double next_y = accel.getY();
+//
+//    	if (next_x != currentAngleX)
+//    	{
+//    		currentAngleX = next_x ;
+//    		print_flag = true;
+//    	}
+//
+//    	if (next_y != currentAngleY)
+//    	{
+//    		currentAngleY = next_y ;
+//    		print_flag = true;
+//    	}
+//
+//    	if (print_flag)
+//    	{
+//    		System.out.println("accel: X = " + next_x + ", Y = " + next_y);
+//
+//    	}
+//
+//
+//
+//    }
 }
